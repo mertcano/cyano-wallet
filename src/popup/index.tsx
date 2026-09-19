@@ -35,8 +35,12 @@ import { initHistory } from './history';
 import * as Pages from './pages';
 import { initStore } from './redux';
 
+// Read the Bugsnag API key from the environment so the secret is not committed
+// to source control. Set REACT_APP_BUGSNAG_API_KEY in a local .env file
+// (see .env.example). config/env.js exposes REACT_APP_* variables to the
+// bundle via webpack DefinePlugin.
 const bugsnagClient = bugsnag({
-  apiKey: '162731d88707c7260689fba047f0a6a7',
+  apiKey: process.env.REACT_APP_BUGSNAG_API_KEY,
   appType: 'popup',
   beforeSend: (report) => {
     report.stacktrace = report.stacktrace.map((frame) => {
